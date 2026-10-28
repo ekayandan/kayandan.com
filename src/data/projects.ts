@@ -61,7 +61,7 @@ export const clientWork: Project[] = [
     id: 'ard-hilfe',
     name: 'ARD help portal',
     status: 'Live',
-    period: 'Dec 2022 – Sep 2023',
+    period: '2023',
     layout: 'top',
     role: 'Working student at Jatosha GmbH',
     blurb:
@@ -69,14 +69,15 @@ export const clientWork: Project[] = [
     tags: ['React'],
     links: [{ label: 'hilfe.ard.de', href: 'https://hilfe.ard.de' }],
     videos: [
-      { src: '/videos/ard-desktop.mp4', webm: '/videos/ard-desktop.webm', poster: '/videos/ard-desktop-poster.jpg', alt: 'The ARD help portal: search, help areas and a help category on desktop', device: 'desktop' },
-      { src: '/videos/ard-mobile.mp4', webm: '/videos/ard-mobile.webm', poster: '/videos/ard-mobile-poster.jpg', alt: 'The ARD help portal: search, help areas and a help category on mobile', device: 'mobile' },
+      { src: '/videos/ard-desktop.mp4', webm: '/videos/ard-desktop.webm', poster: '/videos/ard-desktop-poster.jpg', light: { src: '/videos/ard-desktop-light.mp4', webm: '/videos/ard-desktop-light.webm', poster: '/videos/ard-desktop-light-poster.jpg' }, alt: 'The ARD help portal: search, help areas and a help category on desktop', device: 'desktop' },
+      { src: '/videos/ard-mobile.mp4', webm: '/videos/ard-mobile.webm', poster: '/videos/ard-mobile-poster.jpg', light: { src: '/videos/ard-mobile-light.mp4', webm: '/videos/ard-mobile-light.webm', poster: '/videos/ard-mobile-light-poster.jpg' }, alt: 'The ARD help portal: search, help areas and a help category on mobile', device: 'mobile' },
     ],
   },
   {
     id: 'aiutanda',
     name: 'aiutanda patient app and admin web app',
     status: 'Live',
+    period: '2022',
     role: 'at Jatosha GmbH, for aiutanda',
     blurb:
       'Built at Jatosha GmbH for aiutanda, a nationwide healthcare group: a Flutter patient app so nurses can request care services and supplies in the field, plus an Angular admin web app. There is no public web demo, so these are the store screenshots (sample data).',
@@ -95,6 +96,7 @@ export const clientWork: Project[] = [
     id: 'ulviye-yucel-sigorta',
     name: 'Ulviye Yücel Sigorta',
     status: 'Live',
+    period: '2019',
     role: 'Freelance web developer',
     blurb:
       "Designed and built the agency's website as a freelancer. A Turkish-language site for an insurance brokerage: product pages for traffic, comprehensive, health, home and DASK cover, a quote-request form and contact details.",

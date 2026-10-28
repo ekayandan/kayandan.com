@@ -19,7 +19,7 @@ const shots = (j: (typeof experience)[number]) =>
       experience.map((job) => (
         <Row title={job.title}>
           <p slot="sub" class="row-sub">
-            {logoFor(job.company) && <CompanyLogo name={logoFor(job.company)!} size={15} />}
+            {logoFor(job.company) && <CompanyLogo name={logoFor(job.company)!} size={15} company={job.company} />}
             {`${job.company} · ${job.location}`}
           </p>
           <span slot="aside" class="mono date">{job.period}</span>
@@ -57,7 +57,7 @@ const shots = (j: (typeof experience)[number]) =>
         earlier.map((r) => (
           <Row title={r.title} compact>
             <p slot="sub" class="row-sub">
-              {logoFor(r.company) && <CompanyLogo name={logoFor(r.company)!} size={15} />}
+              {logoFor(r.company) && <CompanyLogo name={logoFor(r.company)!} size={15} company={r.company} />}
               {r.company}
             </p>
             <span slot="aside" class="mono date">{r.period}</span>

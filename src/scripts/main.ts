@@ -5,6 +5,7 @@ import { initReveal } from './reveal';
 import { initOpenSource } from './openSource';
 import { initPalette } from './palette';
 import { initVideos } from './videos';
+import { initZoomCenter } from './zoomCenter';
 
 const boot = () => {
   initTheme();
@@ -14,6 +15,7 @@ const boot = () => {
   initPalette();
   initReveal();
   initVideos();
+  initZoomCenter();
 };
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
 else boot();

@@ -14,22 +14,25 @@ const { rows, layout = mediaLayout } = Astro.props;
     <div class:list={['demo-clips', `demo-clips--${layout}`]} data-media-row style={`--sum:${row.sum};--gaps:${row.items.length - 1}`}>
       {row.items.map((m) =>
         m.kind === 'video' ? (
-          <video
-            class="demo-clip"
-            style={`--r:${m.ratio}`}
-            data-demo
-            muted
-            loop
-            playsinline
-            preload="none"
-            poster={m.poster}
-            aria-label={m.alt}
-            width={m.width}
-            height={m.height}
-          >
-            {m.webm && <source src={m.webm} type="video/webm" />}
-            <source src={m.src} type="video/mp4" />
-          </video>
+          [{ scheme: m.light ? 'dark' : undefined, v: m }, ...(m.light ? [{ scheme: 'light', v: m.light }] : [])].map(({ scheme, v }) => (
+            <video
+              class="demo-clip"
+              style={`--r:${m.ratio}`}
+              data-demo
+              data-scheme={scheme}
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster={v.poster}
+              aria-label={m.alt}
+              width={m.width}
+              height={m.height}
+            >
+              {v.webm && <source src={v.webm} type="video/webm" />}
+              <source src={v.src} type="video/mp4" />
+            </video>
+          ))
         ) : (
           <img class="demo-clip" style={`--r:${m.ratio}`} src={m.src} alt={m.alt} width={m.width} height={m.height} loading="lazy" decoding="async" />
         ),

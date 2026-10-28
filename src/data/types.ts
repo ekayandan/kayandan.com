@@ -50,7 +50,7 @@ export interface Project {
   layout?: MediaLayout;
   screenshots?: { src: string; alt: string }[];
   /** Looping demo clips (muted). Poster is shown before play / with reduced motion; screenshots are the fallback. */
-  videos?: { src: string; webm?: string; poster: string; alt: string; device: 'desktop' | 'mobile' }[];
+  videos?: { src: string; webm?: string; poster: string; alt: string; device: 'desktop' | 'mobile'; light?: { src: string; webm?: string; poster: string } }[];
   /** Still images shown as a same-height row (e.g. store screenshots). */
   gallery?: { src: string; alt: string; width: number; height: number }[];
 }
@@ -86,5 +86,5 @@ export interface EducationEntry {
 
 
 export type MediaItem =
-  | { kind: 'video'; src: string; webm?: string; poster: string; alt: string; width: number; height: number; ratio: number }
+  | { kind: 'video'; src: string; webm?: string; poster: string; alt: string; width: number; height: number; ratio: number; light?: { src: string; webm?: string; poster: string } }
   | { kind: 'img'; src: string; alt: string; width: number; height: number; ratio: number };

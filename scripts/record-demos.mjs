@@ -160,8 +160,9 @@ async function startCapture(ctx, page, dir) {
 mkdirSync(OUT, { recursive: true });
 const browser = await chromium.launch();
 for (const [site, cfg] of Object.entries(SITES)) {
-  for (const [device, viewport] of Object.entries(VIEWPORTS)) {
-    const name = `${site}-${device}`;
+  // Sites that support dark mode are also recorded in light, as `<site>-<device>-light`, for the site's light theme.
+  for (const [scheme, device, viewport] of Object.entries(VIEWPORTS).flatMap(([d, v]) => (cfg.dark ? [['dark', d, v], ['light', d, v]] : [[cfg.dark ? 'dark' : 'light', d, v]]))) {
+    const name = `${site}-${device}${cfg.dark && scheme === 'light' ? '-light' : ''}`;
     if (process.env.ONLY && !name.includes(process.env.ONLY)) continue;
     const tmp = mkdtempSync(join(tmpdir(), 'rec-'));
     const ctx = await browser.newContext({
@@ -170,7 +171,7 @@ for (const [site, cfg] of Object.entries(SITES)) {
       isMobile: device === 'mobile',
       hasTouch: device === 'mobile',
       // The site is dark; record sources in dark mode too where they support it.
-      colorScheme: cfg.dark ? 'dark' : 'light',
+      colorScheme: scheme,
     });
     const page = await ctx.newPage();
     page.setDefaultTimeout(10000);

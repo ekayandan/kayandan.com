@@ -43,7 +43,7 @@ const single = (p: Project) => (p.links && p.links.length === 1 ? p.links[0] : u
             group.map((p) => {
               const one = single(p);
               return (
-                <Row title={p.name} subtitle={p.role} layout={p.layout} href={one?.href} linkLabel={one ? `${p.name} on GitHub (opens in a new tab)` : undefined}>
+                <Row title={p.name} subtitle={p.period && p.role ? `${p.role} · ${p.period}` : (p.role ?? p.period)} layout={p.layout} href={one?.href} linkLabel={one ? `${p.name} on GitHub (opens in a new tab)` : undefined}>
                   {rows(p).length > 0 && (
                     <div slot="media">
                       <Media rows={rows(p)} layout={p.layout} />

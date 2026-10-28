@@ -707,6 +707,32 @@ kbd {
   color: var(--ink);
   opacity: 0.85;
 }
+.co-logo--mask {
+  background: currentColor;
+  -webkit-mask: var(--logo) center / contain no-repeat;
+  mask: var(--logo) center / contain no-repeat;
+}
+.co-logo-link {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  border-radius: 3px;
+  text-decoration: none;
+}
+.co-logo-link .co-logo {
+  margin-right: 0;
+  transition: opacity 150ms var(--ease);
+}
+.co-logo-link:hover .co-logo,
+.co-logo-link:focus-visible .co-logo {
+  opacity: 1;
+}
+.co-logo-link {
+  margin-right: 4px;
+}
+.row-sub .co-logo-link {
+  margin-right: 6px;
+}
 .row-sub .co-logo {
   margin-right: 6px;
   vertical-align: -3px;
@@ -1115,6 +1141,34 @@ kbd {
 }
 .demo-clips--side > .demo-clip:hover {
   transform: scale(1.5);
+}
+/* Clips recorded per colour scheme: show the one matching the site's theme (system preference unless forced). */
+.demo-clips > .demo-clip[data-scheme='light'] {
+  display: none;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) .demo-clips > .demo-clip[data-scheme='dark'] {
+    display: none;
+  }
+  :root:not([data-theme='dark']) .demo-clips > .demo-clip[data-scheme='light'] {
+    display: block;
+  }
+}
+:root[data-theme='light'] .demo-clips > .demo-clip[data-scheme='dark'] {
+  display: none;
+}
+:root[data-theme='light'] .demo-clips > .demo-clip[data-scheme='light'] {
+  display: block;
+}
+
+/* Below desktop width the zoom stays anchored to the clip's outer edge and grows toward the centre, so the pointer never leaves it
+   (vars set by zoomCenter.ts). */
+@media (max-width: 1023px) {
+  .demo-clips > .demo-clip:hover,
+  .demo-clips--side > .demo-clip:hover {
+    transform-origin: var(--zo, center) center;
+    transform: scale(var(--zs, 1.35));
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .demo-clips > .demo-clip:hover {

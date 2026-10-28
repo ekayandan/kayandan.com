@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kayandan-com",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  },
+  "routes": [
+    { "pattern": "kayandan.com/*", "zone_name": "kayandan.com" },
+    { "pattern": "www.kayandan.com/*", "zone_name": "kayandan.com" }
+  ]
+}
