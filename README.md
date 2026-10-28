@@ -38,14 +38,10 @@ All copy lives in `src/data/` as typed data; components are generic and only ren
 |------|----------|
 | `profile.ts` | Name, role line, tagline, email and social links, About paragraphs, languages, contact CTA, footer, SEO strings, the section list used by the nav |
 | `experience.ts` | Jobs (bullets, tech pills, links) and the collapsed "Earlier internships" |
-| `projects.ts` | Featured project cards and the "Also built" list (status, tags, links, per-card placeholders) |
+| `projects.ts` | Featured project cards and the "Also built" list (status, tags, links) |
 | `openSource.ts` | Every merged PR (repo, number, title, +/- lines, month, `notable` flag). Counts and totals are derived. |
 | `skills.ts`, `education.ts` | As named |
 | `types.ts` | Shapes for all of the above |
-
-Placeholders: add the `placeholders: ['...']` array to a project or experience entry, or use
-`<Placeholder label="..." />`. They render as dashed "TODO:" elements. See `PLACEHOLDERS.md` for the
-current list and what to supply.
 
 ## Regenerating demo clips
 
@@ -77,7 +73,7 @@ src/
   layouts/      Base.astro (head, SEO, JSON-LD, theme boot script, fonts)
   components/   Topbar, Header (sidebar), About, Experience, Projects, OpenSource, Skills,
                 Education, Contact, Palette, Row (shared list row), Section, Tags,
-                Placeholder, ExtLink, Icon
+                ExtLink, Icon
   scripts/      theme, glow, spy (scroll-spy), reveal (entrance), openSource (filter), palette, main
   styles/       global.css (tokens, layout, hover grammar, palette, motion)
   data/         content (see above)
@@ -112,4 +108,3 @@ The build output is plain static files in `dist/`, with `https://kayandan.com` s
 - **Cloudflare Workers static assets:** add a `wrangler.jsonc` with `"assets": { "directory": "./dist" }`
   (and `"not_found_handling": "404-page"` so `404.html` is served), then `npx wrangler deploy`.
 - Attach the `kayandan.com` custom domain in either case. `robots.txt` points at `/sitemap-index.xml`.
-- Add `public/resume.pdf` first if you want the resume button to work (see `PLACEHOLDERS.md`).

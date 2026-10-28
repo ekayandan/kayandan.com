@@ -52,10 +52,6 @@
   --selection-text: #134e4a;
   --focus: var(--ink);
 
-  /* Placeholders: warm yellow wash + dashed line so they are impossible to miss */
-  --ph-bg: light-dark(rgba(250, 214, 87, 0.2), rgba(250, 214, 87, 0.08));
-  --ph-line: light-dark(#b8941f, #8a7424);
-
   --glow-color: light-dark(rgba(60, 90, 255, 0.07), rgba(120, 150, 255, 0.1));
   --glow-size: 600px;
 
@@ -698,29 +694,22 @@ kbd {
 /* --------------------------------------------------------------------------
    About
    -------------------------------------------------------------------------- */
-.about {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 20px;
+.about .prose {
+  max-width: none;
 }
-.about-avatar .avatar {
-  width: 80px;
-  border-radius: 50%;
-  font-size: 10px;
-  line-height: 12px;
+.co {
+  white-space: nowrap;
 }
-@media (min-width: 640px) {
-  .about {
-    grid-template-columns: minmax(0, 1fr) 96px;
-    column-gap: 40px;
-  }
-  .about-avatar {
-    grid-column: 2;
-    grid-row: 1;
-  }
-  .about-avatar .avatar {
-    width: 96px;
-  }
+.co-logo {
+  display: inline-block;
+  vertical-align: -2px;
+  margin-right: 4px;
+  color: var(--ink);
+  opacity: 0.85;
+}
+.row-sub .co-logo {
+  margin-right: 6px;
+  vertical-align: -3px;
 }
 
 /* --------------------------------------------------------------------------
@@ -905,9 +894,6 @@ kbd {
   line-height: 16px;
   font-weight: 500;
 }
-.row-main .placeholder {
-  margin-top: 10px;
-}
 
 /* badges */
 .badges {
@@ -1075,56 +1061,25 @@ kbd {
 .btn--primary:hover {
   background: color-mix(in srgb, var(--ink) 86%, var(--bg));
 }
-.btn.placeholder {
-  height: auto;
-  min-height: 36px;
-  padding: 4px 14px;
-  flex-wrap: nowrap;
-  text-align: left;
-  border-radius: 6px;
-}
-
-/* --------------------------------------------------------------------------
-   Placeholders
-   -------------------------------------------------------------------------- */
-.placeholder {
-  display: inline-block;
-  padding: 0 8px;
-  border: 1px dashed var(--ph-line);
-  border-radius: 4px;
-  background: var(--ph-bg);
-  color: var(--text);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 18px;
-  font-weight: 500;
-}
-.placeholder-text {
-  font: inherit;
-}
-.placeholder--box {
-  display: grid;
-  place-items: center;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  padding: 6px;
-  border-radius: 6px;
-  text-align: center;
-  font-size: 11px;
-  line-height: 14px;
-  overflow: hidden;
-}
-.placeholder--box.avatar {
-  aspect-ratio: 1;
-}
-.placeholder--box.shot {
-  margin-top: 0;
-}
 .row-aside .shot {
   box-shadow: none;
 }
+.row-split--side {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 42%);
+  column-gap: 28px;
+  align-items: start;
+  margin-top: 8px;
+}
+.row-split--side .row-media {
+  order: 2;
+  margin-top: 8px;
+}
+.row-split--side .row-text > :first-child {
+  margin-top: 8px;
+}
 .demo-clips {
-  /* One shared height: the row width split by the sum of the items' aspect ratios. */
+  /* Top layout: one shared height, the row width split by the sum of the items' aspect ratios. */
   container-type: inline-size;
   display: flex;
   gap: 10px;
@@ -1142,6 +1097,35 @@ kbd {
   border-radius: 8px;
   border: 1px solid var(--hairline);
   background: var(--hairline);
+  transform-origin: center;
+  transition: transform 220ms var(--ease), box-shadow 220ms var(--ease);
+}
+/* Side layout: items sit side by side inside the media column, same height. */
+.demo-clips--side {
+  margin: 0 0 10px;
+}
+.demo-clips--side > .demo-clip {
+  transform-origin: right center;
+}
+.demo-clips > .demo-clip:hover {
+  position: relative;
+  z-index: 5;
+  transform: scale(1.35);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+.demo-clips--side > .demo-clip:hover {
+  transform: scale(1.5);
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-clips > .demo-clip:hover {
+    transform: none;
+  }
+}
+@media (hover: none), (max-width: 639px) {
+  .demo-clips > .demo-clip:hover {
+    transform: none;
+    box-shadow: none;
+  }
 }
 .shot-img {
   display: block;
@@ -1462,6 +1446,12 @@ kbd {
    Responsive + motion preferences
    -------------------------------------------------------------------------- */
 @media (max-width: 639px) {
+  .row-split--side {
+    display: block;
+  }
+  .row-split--side .row-media {
+    margin-bottom: 8px;
+  }
   .row-grid {
     grid-template-columns: minmax(0, 1fr);
     row-gap: 6px;
@@ -1538,4 +1528,15 @@ kbd {
     position: static;
     height: auto;
   }
+}
+
+/* Rows without a date column (projects) use the full width. */
+.row-grid:has(> .row-aside:empty) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Media sits above the stretched row link so it can take hover (zoom). */
+.row-media {
+  position: relative;
+  z-index: 2;
 }

@@ -14,7 +14,7 @@ Last synced with the profile: 2026-10-28.
 
 - **Headline:** Full-stack engineer, backend focus. (`profile.role`)
 - **One-liner:** Founder of Flyism.net and BizeVizeYok.com. Based in Munich, Germany.
-- **What I'm looking for:** full-time roles in Germany: AI/agent engineering, full-stack product engineering, backend. Available immediately. Munich, open to relocation within Germany; on-site or hybrid.
+- **What I'm looking for:** full-time roles in Germany: AI/agent engineering, full-stack product engineering, backend. Open to work. Munich, open to relocation within Germany; on-site or hybrid.
 - **Story in one sentence:** I ship real products by orchestrating AI coding agents as sole architect and reviewer, and I make that safe with automated quality gates. Before that, 3+ years of Spring/Angular/React work at GE, Vodafone, Octovan, Infineon and Jatosha, and a TUM thesis on Artemis performance.
 
 ## 2. Hard numbers (use these, nothing else)
@@ -109,7 +109,6 @@ products should be *seen working*. In priority order:
 - [ ] **Walkthrough video + YouTube channel (research).** 2–3 min: "Shipping a product with five AI agents and one reviewer." Decide: channel name and scope (agentic engineering? building Flyism in public?), recording setup (OBS/Screen Studio, mic), cadence, whether Turkish or English or both, and Shorts cut-downs. Then embed the video in Projects and pin it on LinkedIn.
 - [ ] **Distribution (later, important):** LinkedIn posts per clip/diagram, Show HN + r/ClaudeAI for agent-native-repository, Turkish channels for BizeVizeYok, write-ups to bring back the Writing section, `Person`/`SoftwareApplication` JSON-LD, "Built by" footer links on both products.
 - [ ] **Client work section** (decide): ARD help portal and aiutanda, see below.
-- [ ] Kaset live demo: decide (PLACEHOLDERS #10).
 
 ## 8. Live work that could go on the site
 

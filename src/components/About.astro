@@ -1,23 +1,19 @@
 ---
 import Section from './Section.astro';
-import Placeholder from './Placeholder.astro';
 import { profile } from '../data/profile';
-const paras = profile.about;
+import { logoSvg, type LogoKey } from '../data/logos';
+// "{{logo:key}}" inside a paragraph becomes the company's small mark.
+const paras = profile.about.map((p) => p.replace(/\{\{logo:(\w+)\}\}/g, (_, k) => logoSvg(k as LogoKey, 14)));
 ---
 
 <Section id="about" title="About">
   <div class="about">
-    <div class="about-avatar" data-reveal>
-      <Placeholder variant="box" label={profile.aboutPlaceholders.avatar} class="avatar" />
-    </div>
-    <div class="about-copy">
-      {
-        paras.map((p) => (
-          <p class="prose" data-reveal>
-            <Fragment set:html={p} />
-          </p>
-        ))
-      }
-    </div>
+    {
+      paras.map((p) => (
+        <p class="prose" data-reveal>
+          <Fragment set:html={p} />
+        </p>
+      ))
+    }
   </div>
 </Section>

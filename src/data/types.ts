@@ -3,6 +3,9 @@ export interface Link {
   href: string;
 }
 
+/** "top": media above the text at full width. "side": media beside the text, sharing the row width. */
+export type MediaLayout = 'top' | 'side';
+
 export interface Experience {
   id: string;
   title: string;
@@ -13,8 +16,7 @@ export interface Experience {
   bullets: string[];
   tags: string[];
   links?: Link[];
-  /** Visible TODO placeholders rendered inside the row. */
-  placeholders?: string[];
+  screenshots?: { src: string; alt: string }[];
 }
 
 export interface EarlierRole {
@@ -44,12 +46,13 @@ export interface Project {
   notes?: { label: string; text: string }[];
   tags: string[];
   links?: Link[];
+  /** Overrides the global media layout for this entry. */
+  layout?: MediaLayout;
   screenshots?: { src: string; alt: string }[];
   /** Looping demo clips (muted). Poster is shown before play / with reduced motion; screenshots are the fallback. */
   videos?: { src: string; webm?: string; poster: string; alt: string; device: 'desktop' | 'mobile' }[];
   /** Still images shown as a same-height row (e.g. store screenshots). */
   gallery?: { src: string; alt: string; width: number; height: number }[];
-  placeholders?: string[];
 }
 
 export interface PullRequest {
@@ -77,5 +80,11 @@ export interface EducationEntry {
   institution: string;
   period: string;
   note?: string;
+  bullets?: string[];
+  tags?: string[];
 }
 
+
+export type MediaItem =
+  | { kind: 'video'; src: string; webm?: string; poster: string; alt: string; width: number; height: number; ratio: number }
+  | { kind: 'img'; src: string; alt: string; width: number; height: number; ratio: number };

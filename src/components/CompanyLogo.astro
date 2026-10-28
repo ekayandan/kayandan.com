@@ -1,0 +1,10 @@
+---
+import { logoSvg, type LogoKey } from '../data/logos';
+export interface Props {
+  name: LogoKey;
+  size?: number;
+}
+const { name, size = 16 } = Astro.props;
+---
+
+<Fragment set:html={logoSvg(name, size)} />

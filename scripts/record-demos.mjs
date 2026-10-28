@@ -99,6 +99,7 @@ const SITES = {
   },
   ard: {
     url: 'https://hilfe.ard.de',
+    dark: true,
     async flow(page, device) {
       await pause(page, 1200);
       const no = page.getByRole('button', { name: 'Ablehnen' });
@@ -168,6 +169,8 @@ for (const [site, cfg] of Object.entries(SITES)) {
       deviceScaleFactor: 1,
       isMobile: device === 'mobile',
       hasTouch: device === 'mobile',
+      // The site is dark; record sources in dark mode too where they support it.
+      colorScheme: cfg.dark ? 'dark' : 'light',
     });
     const page = await ctx.newPage();
     page.setDefaultTimeout(10000);

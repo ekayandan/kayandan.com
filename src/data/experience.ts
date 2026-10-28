@@ -2,42 +2,6 @@ import type { EarlierRole, Experience } from './types';
 
 export const experience: Experience[] = [
   {
-    id: 'flyism-bvy',
-    title: 'Founder & Software Engineer',
-    company: 'Flyism.net & BizeVizeYok.com',
-    location: 'Remote',
-    period: 'Jun 2026 – Present',
-    bullets: [
-      'Built two live flight-discovery products that find the cheapest flights to countries a traveller can enter without a visa: Flyism.net (international travellers) and BizeVizeYok.com (Turkish market), from one shared codebase.',
-      'Orchestrate a multi-agent engineering setup (Claude Code, Codex, Gemini, Cursor, Hermes Agent) with shared memory; agents implement in parallel, each in its own git worktree, while I own product decisions, specs, architecture rules and acceptance as single reviewer.',
-      'Made single-reviewer development safe with automated gates: ~750 tests (Vitest, Playwright on desktop and mobile), type, lint and dead-code checks and SonarCloud; a pull request merges only with passing CI.',
-      'Cover 9 passports with 767 routes to 147 countries and 2,303 airports with scheduled flights.',
-      'Serverless TypeScript backend on Cloudflare Workers (Hono, Zod): provider adapter over a GraphQL flight-data API, KV caching, per-client rate limiting.',
-      'Price-history pipeline: raw provider responses archived in R2, projected asynchronously into D1, with replay and recovery tooling.',
-      'Restricted API for visa-rule research agents: they read only human-approved official pages and submit proofs that must quote the saved page exactly; a human reviews before anything is used.',
-      'Mobile-first multilingual React frontend with server-rendered SEO pages, a public-holiday trip planner and consent-gated analytics.',
-    ],
-    tags: ['TypeScript', 'React', 'Cloudflare Workers', 'Hono', 'Zod', 'D1', 'R2', 'KV', 'Vitest', 'Playwright'],
-    links: [
-      { label: 'flyism.net', href: 'https://flyism.net' },
-      { label: 'bizevizeyok.com', href: 'https://bizevizeyok.com' },
-    ],
-  },
-  {
-    id: 'tum-thesis',
-    title: "Master's Thesis, Artemis",
-    company: 'Technical University of Munich',
-    location: 'Munich',
-    period: 'Mar 2025 – Jan 2026',
-    bullets: [
-      'Performance and scalability improvements in Artemis, an open-source programming education platform used by universities in Germany and internationally.',
-      'In-memory Git and ZIP handling in Java cut an export endpoint’s turnaround time by ~75%; lightweight JSON repository representations between the Java and Python services cut inter-service payloads by ~83% (~100 KB to ~17 KB).',
-      'Moved code-diff computation from the server to the browser (Angular, Monaco Editor), removing 20–124 ms of server work per submission, an estimated 33–207 server CPU-hours per semester at TUM alone.',
-      'Made failing Jenkins stages retry before alerting, cutting the fail rate of Artemis’ CI gates from ~80% to ~20%.',
-    ],
-    tags: ['Java', 'Spring Boot', 'Git', 'Performance'],
-  },
-  {
     id: 'infineon',
     title: 'Software & DevOps Engineering Working Student',
     company: 'Infineon AG',

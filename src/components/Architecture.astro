@@ -76,7 +76,7 @@ const W = 400;
   <figure class="dg" data-reveal>
     <figcaption>
       <span class="dg-title">JobTrack</span>
-      A private job-search assistant: Claude does the reading, scoring and form filling, and I make every decision. Modules run as a pipeline, each the only writer of its own tables, linked by events and public APIs. Shaded boxes run Claude agents; dashed ones are still planned.
+      A private job-search assistant: Claude does the reading, scoring and form filling, and I make every decision. Modules run as a pipeline, each the only writer of its own tables, linked by events and public APIs. Shaded boxes run Claude agents.
     </figcaption>
     <svg viewBox="0 0 520 678" role="img" aria-labelledby="dg-jt-t">
       <title id="dg-jt-t">JobTrack modules as a pipeline: automation, ingestion, scoring, listing and application, with browser, documents and orchestrator agents under application. Events and APIs link the modules, each table has one owning module, Claude agents run in scoring, browser and documents, and a human decides pass or go and reviews and submits every application.</title>
@@ -84,7 +84,7 @@ const W = 400;
         <rect class="dg-box" x="10" y="10" width="320" height="60" rx="8" />
         <text class="dg-t" x="24" y="31">automation</text>
         <text class="dg-s" x="24" y="48">cron schedules · LinkedIn search runs</text>
-        <text class="dg-s" x="24" y="63">owns saved_searches, runs (planned)</text>
+        <text class="dg-s" x="24" y="63">owns saved_searches, runs</text>
         <rect class="dg-box" x="10" y="100" width="320" height="60" rx="8" />
         <text class="dg-t" x="24" y="121">ingestion</text>
         <text class="dg-s" x="24" y="138">extension scrapes · stores the posting</text>
@@ -109,9 +109,8 @@ const W = 400;
       <text class="dg-s" x="374" y="66">Schema across</text>
       <text class="dg-s" x="374" y="82">Java, Python,</text>
       <text class="dg-s" x="374" y="98">extension</text>
-      <text class="dg-s" x="374" y="114">(folder planned)</text>
-      <text class="dg-s" x="374" y="130">api / internal</text>
-      <text class="dg-s" x="374" y="146">per Java module</text>
+      <text class="dg-s" x="374" y="114">api / internal</text>
+      <text class="dg-s" x="374" y="130">per Java module</text>
       <rect class="dg-box" x="360" y="190" width="150" height="94" rx="8" />
       <text class="dg-t" x="374" y="211">profile</text>
       <text class="dg-s" x="374" y="230">career facts, kept</text>
@@ -157,9 +156,9 @@ const W = 400;
       <text class="dg-s" x="72" y="88">run id · extension scrapes</text>
       <text class="dg-s" x="72" y="178">event · JobIngested</text>
       <text class="dg-s" x="72" y="268">api · listing ranks</text>
-      <text class="dg-s" x="72" y="358">go · JobChosen (planned)</text>
+      <text class="dg-s" x="72" y="358">go · JobChosen</text>
       <text class="dg-s" x="72" y="449">application API</text>
-      <text class="dg-s" x="10" y="648">shaded = Claude agent · dashed = planned</text>
+      <text class="dg-s" x="10" y="648">shaded = Claude agent</text>
       <text class="dg-s" x="10" y="666">Java 21 · Spring Boot · Postgres · Python · Playwright</text>
     </svg>
   </figure>
@@ -222,7 +221,6 @@ const W = 400;
   .dg-group {
     fill: none;
     stroke: var(--line);
-    stroke-dasharray: 4 4;
   }
   .dg-t {
     fill: var(--ink);

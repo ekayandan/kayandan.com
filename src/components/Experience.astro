@@ -3,18 +3,31 @@ import Section from './Section.astro';
 import Row from './Row.astro';
 import Tags from './Tags.astro';
 import ExtLink from './ExtLink.astro';
-import Placeholder from './Placeholder.astro';
 import Icon from './Icon.astro';
+import CompanyLogo from './CompanyLogo.astro';
+import Media from './Media.astro';
+import { logoFor } from '../data/logos';
 import { experience, earlier } from '../data/experience';
 import { profile } from '../data/profile';
+const shots = (j: (typeof experience)[number]) =>
+  (j.screenshots ?? []).map((s) => ({ sum: 16 / 9, items: [{ kind: 'img' as const, ...s, width: 1280, height: 720, ratio: 16 / 9 }] }));
 ---
 
 <Section id="experience" title="Experience">
   <ol class="list" data-list>
     {
       experience.map((job) => (
-        <Row title={job.title} subtitle={`${job.company} · ${job.location}`}>
+        <Row title={job.title}>
+          <p slot="sub" class="row-sub">
+            {logoFor(job.company) && <CompanyLogo name={logoFor(job.company)!} size={15} />}
+            {`${job.company} · ${job.location}`}
+          </p>
           <span slot="aside" class="mono date">{job.period}</span>
+          {shots(job).length > 0 && (
+            <div slot="media">
+              <Media rows={shots(job)} />
+            </div>
+          )}
           <ul class="bullets">
             {job.bullets.map((b) => (
               <li>{b}</li>
@@ -28,9 +41,6 @@ import { profile } from '../data/profile';
             </p>
           )}
           <Tags tags={job.tags} />
-          {job.placeholders?.map((p) => (
-            <Placeholder label={p} />
-          ))}
         </Row>
       ))
     }
@@ -45,7 +55,11 @@ import { profile } from '../data/profile';
     <ol class="list" data-list>
       {
         earlier.map((r) => (
-          <Row title={r.title} subtitle={r.company} compact>
+          <Row title={r.title} compact>
+            <p slot="sub" class="row-sub">
+              {logoFor(r.company) && <CompanyLogo name={logoFor(r.company)!} size={15} />}
+              {r.company}
+            </p>
             <span slot="aside" class="mono date">{r.period}</span>
             <p class="row-body">{r.summary}</p>
           </Row>

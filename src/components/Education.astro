@@ -1,6 +1,7 @@
 ---
 import Section from './Section.astro';
 import Row from './Row.astro';
+import Tags from './Tags.astro';
 import { education } from '../data/education';
 import { profile } from '../data/profile';
 ---
@@ -12,6 +13,14 @@ import { profile } from '../data/profile';
         <Row title={e.title} subtitle={e.institution} compact>
           <span slot="aside" class="mono date">{e.period}</span>
           {e.note && <p class="row-body">{e.note}</p>}
+          {e.bullets && (
+            <ul class="bullets">
+              {e.bullets.map((b) => (
+                <li>{b}</li>
+              ))}
+            </ul>
+          )}
+          {e.tags && <Tags tags={e.tags} />}
         </Row>
       ))
     }

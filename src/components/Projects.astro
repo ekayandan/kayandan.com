@@ -3,16 +3,13 @@ import Section from './Section.astro';
 import Row from './Row.astro';
 import Tags from './Tags.astro';
 import ExtLink from './ExtLink.astro';
-import Placeholder from './Placeholder.astro';
+import Media from './Media.astro';
 import { featured, clientWork, alsoBuilt } from '../data/projects';
-import type { Project } from '../data/types';
+import type { Project, MediaItem } from '../data/types';
 
-type Media =
-  | { kind: 'video'; src: string; webm?: string; poster: string; alt: string; width: number; height: number; ratio: number }
-  | { kind: 'img'; src: string; alt: string; width: number; height: number; ratio: number };
 /** Media rows: each row shares one height; widths follow each item's aspect ratio. Videos pair up per site (desktop + mobile). */
-const rows = (p: Project): { sum: number; items: Media[] }[] => {
-  let items: Media[] = [];
+const rows = (p: Project): { sum: number; items: MediaItem[] }[] => {
+  let items: MediaItem[] = [];
   if (p.videos?.length) {
     items = p.videos.map((v) => {
       const m = v.device === 'mobile';
@@ -22,10 +19,10 @@ const rows = (p: Project): { sum: number; items: Media[] }[] => {
   } else if (p.gallery?.length) {
     items = p.gallery.map((g) => ({ kind: 'img', ...g, ratio: g.width / g.height }));
   } else if (p.screenshots?.length) {
-    return p.screenshots.map((s) => ({ sum: 16 / 9, items: [{ kind: 'img', ...s, width: 1280, height: 720, ratio: 16 / 9 } as Media] }));
+    return p.screenshots.map((s) => ({ sum: 16 / 9, items: [{ kind: 'img', ...s, width: 1280, height: 720, ratio: 16 / 9 } as MediaItem] }));
   }
   const size = p.videos?.length ? 2 : items.length;
-  const out: { sum: number; items: Media[] }[] = [];
+  const out: { sum: number; items: MediaItem[] }[] = [];
   for (let i = 0; i < items.length; i += size) {
     const part = items.slice(i, i + size);
     out.push({ sum: part.reduce((a, m) => a + m.ratio, 0), items: part });
@@ -46,37 +43,16 @@ const single = (p: Project) => (p.links && p.links.length === 1 ? p.links[0] : u
             group.map((p) => {
               const one = single(p);
               return (
-                <Row title={p.name} subtitle={p.role} href={one?.href} linkLabel={one ? `${p.name} on GitHub (opens in a new tab)` : undefined}>
+                <Row title={p.name} subtitle={p.role} layout={p.layout} href={one?.href} linkLabel={one ? `${p.name} on GitHub (opens in a new tab)` : undefined}>
+                  {rows(p).length > 0 && (
+                    <div slot="media">
+                      <Media rows={rows(p)} layout={p.layout} />
+                    </div>
+                  )}
                   <span slot="badges" class="badges">
                     <span class:list={['badge', p.status === 'Live' && 'badge--live']}>{p.status}</span>
                     {p.visibility && <span class="badge badge--quiet">{p.visibility === 'private' ? 'Private repo' : 'Public repo'}</span>}
                   </span>
-                  {rows(p).map((row) => (
-                    <div class="demo-clips" data-media-row style={`--sum:${row.sum};--gaps:${row.items.length - 1}`}>
-                      {row.items.map((m) =>
-                        m.kind === 'video' ? (
-                          <video
-                            class:list={['demo-clip']}
-                            style={`--r:${m.ratio}`}
-                            data-demo
-                            muted
-                            loop
-                            playsinline
-                            preload="none"
-                            poster={m.poster}
-                            aria-label={m.alt}
-                            width={m.width}
-                            height={m.height}
-                          >
-                            {m.webm && <source src={m.webm} type="video/webm" />}
-                            <source src={m.src} type="video/mp4" />
-                          </video>
-                        ) : (
-                          <img class="demo-clip" style={`--r:${m.ratio}`} src={m.src} alt={m.alt} width={m.width} height={m.height} loading="lazy" decoding="async" />
-                        ),
-                      )}
-                    </div>
-                  ))}
                   <p class="row-body">{p.blurb}</p>
                   {p.stats && (
                     <dl class="stats">
@@ -108,9 +84,6 @@ const single = (p: Project) => (p.links && p.links.length === 1 ? p.links[0] : u
                     </p>
                   )}
                   <Tags tags={p.tags} />
-                  {p.placeholders?.map((t) => (
-                    <Placeholder label={t} />
-                  ))}
                 </Row>
               );
             })
@@ -134,9 +107,6 @@ const single = (p: Project) => (p.links && p.links.length === 1 ? p.links[0] : u
             </span>
             <p class="row-body">{p.blurb}</p>
             <Tags tags={p.tags} />
-            {p.placeholders?.map((t) => (
-              <Placeholder label={t} />
-            ))}
           </Row>
         );
       })

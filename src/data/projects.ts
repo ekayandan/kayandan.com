@@ -6,6 +6,7 @@ export const featured: Project[] = [
     name: 'Flyism.net & BizeVizeYok.com',
     status: 'Live',
     visibility: 'private',
+    layout: 'top',
     blurb:
       'Flight discovery for visa-free destinations: find the cheapest flights to countries you can enter without a visa. Flyism.net serves international travellers, BizeVizeYok.com the Turkish market, from one shared codebase.',
     stats: [
@@ -35,8 +36,8 @@ export const featured: Project[] = [
     videos: [
       { src: '/videos/flyism-desktop.mp4', webm: '/videos/flyism-desktop.webm', poster: '/videos/flyism-desktop-poster.jpg', alt: 'Flyism.net on desktop: pick a passport, browse visa-free destinations and the cheapest fares', device: 'desktop' },
       { src: '/videos/flyism-mobile.mp4', webm: '/videos/flyism-mobile.webm', poster: '/videos/flyism-mobile-poster.jpg', alt: 'Flyism.net on mobile: pick a passport, browse visa-free destinations and the cheapest fares', device: 'mobile' },
-      { src: '/videos/bizevizeyok-desktop.mp4', webm: '/videos/bizevizeyok-desktop.webm', poster: '/videos/bizevizeyok-desktop-poster.jpg', alt: 'BizeVizeYok.com on desktop: pick a passport, browse visa-free destinations and the cheapest fares', device: 'desktop' },
       { src: '/videos/bizevizeyok-mobile.mp4', webm: '/videos/bizevizeyok-mobile.webm', poster: '/videos/bizevizeyok-mobile-poster.jpg', alt: 'BizeVizeYok.com on mobile: pick a passport, browse visa-free destinations and the cheapest fares', device: 'mobile' },
+      { src: '/videos/bizevizeyok-desktop.mp4', webm: '/videos/bizevizeyok-desktop.webm', poster: '/videos/bizevizeyok-desktop-poster.jpg', alt: 'BizeVizeYok.com on desktop: pick a passport, browse visa-free destinations and the cheapest fares', device: 'desktop' },
     ],
     screenshots: [
       { src: '/images/projects/flyism.jpg', alt: 'Flyism.net home page' },
@@ -52,7 +53,6 @@ export const featured: Project[] = [
       'A portable Agent Skill that brings any repository to the state where Claude Code, Codex and Gemini CLI work well in it: an AGENTS.md codebase map enforced by a check, a routing table, one quality command, file-size and dead-code limits, workflow rules, and enforcement in git hooks and CI.',
     tags: ['Python', 'Shell', 'Agent Skills', 'AGENTS.md'],
     links: [{ label: 'github.com/ekayandan/agent-native-repository', href: 'https://github.com/ekayandan/agent-native-repository' }],
-    screenshots: [{ src: '/images/projects/agent-native-repository.jpg', alt: 'agent-native-repository on GitHub' }],
   },
 ];
 
@@ -62,6 +62,7 @@ export const clientWork: Project[] = [
     name: 'ARD help portal',
     status: 'Live',
     period: 'Dec 2022 – Sep 2023',
+    layout: 'top',
     role: 'Working student at Jatosha GmbH',
     blurb:
       "Built the React frontend for ARD's public help portal, on ARD's UI library, while working as a working student at Jatosha GmbH.",
@@ -103,7 +104,6 @@ export const clientWork: Project[] = [
       { src: '/videos/ulviye-desktop.mp4', webm: '/videos/ulviye-desktop.webm', poster: '/videos/ulviye-desktop-poster.jpg', alt: 'The Ulviye Yücel Sigorta website on desktop', device: 'desktop' },
       { src: '/videos/ulviye-mobile.mp4', webm: '/videos/ulviye-mobile.webm', poster: '/videos/ulviye-mobile-poster.jpg', alt: 'The Ulviye Yücel Sigorta website on mobile', device: 'mobile' },
     ],
-    placeholders: ['dates and stack'],
   },
 ];
 
@@ -133,7 +133,6 @@ export const alsoBuilt: Project[] = [
     period: 'Apr 2026',
     blurb: 'Event pages and admin on Cloudflare: public event pages with galleries and a password-protected admin.',
     tags: ['Next.js', 'D1', 'R2'],
-    placeholders: ['confirm whether to show a live demo'],
   },
   {
     id: 'asr',
@@ -152,6 +151,5 @@ export const alsoBuilt: Project[] = [
     period: 'In preparation',
     blurb: 'Grew out of my thesis work. I am working on publishing it as open source.',
     tags: [],
-    placeholders: ['link once released'],
   },
 ];

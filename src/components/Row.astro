@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import { mediaLayout } from '../data/layout';
 
 export interface Props {
   title: string;
@@ -12,8 +13,12 @@ export interface Props {
   /** Extra attributes for filtering etc. */
   attrs?: Record<string, string>;
   id?: string;
+  /** Overrides the global media layout for this row. */
+  layout?: 'top' | 'side';
 }
-const { title, subtitle, href, linkLabel, compact = false, attrs = {}, id } = Astro.props;
+const { title, subtitle, href, linkLabel, compact = false, attrs = {}, id, layout = mediaLayout } = Astro.props;
+// A named slot counts as present even when its content is `false`, so check the rendered output.
+const media = Astro.slots.has('media') ? (await Astro.slots.render('media')).trim() : '';
 const external = href?.startsWith('http');
 ---
 
@@ -43,7 +48,11 @@ const external = href?.startsWith('http');
       <slot name="badges" />
     </div>
     {subtitle && <p class="row-sub">{subtitle}</p>}
-    <slot />
+    <slot name="sub" />
+    <div class:list={['row-split', media && `row-split--${layout}`]}>
+      {media && <div class="row-media" set:html={media} />}
+      <div class="row-text"><slot /></div>
+    </div>
   </div>
   </div>
 </li>
