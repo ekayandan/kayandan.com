@@ -1,0 +1,49 @@
+---
+import Icon from './Icon.astro';
+
+export interface Props {
+  title: string;
+  subtitle?: string;
+  /** Makes the whole row one link target (stretched link on the title). */
+  href?: string;
+  linkLabel?: string;
+  /** Visually quiet row: no description column spacing. */
+  compact?: boolean;
+  /** Extra attributes for filtering etc. */
+  attrs?: Record<string, string>;
+  id?: string;
+}
+const { title, subtitle, href, linkLabel, compact = false, attrs = {}, id } = Astro.props;
+const external = href?.startsWith('http');
+---
+
+<li class:list={['row', href && 'row--link', compact && 'row--compact']} id={id} {...attrs}>
+  <div class="row-grid" data-reveal>
+  <div class="row-aside"><slot name="aside" /></div>
+  <div class="row-main">
+    <div class="row-head">
+      <h3 class="row-title">
+        {
+          href ? (
+            <a
+              class="row-link"
+              href={href}
+              target={external ? '_blank' : undefined}
+              rel={external ? 'noreferrer noopener' : undefined}
+              aria-label={linkLabel ?? (external ? `${title} (opens in a new tab)` : undefined)}
+            >
+              {title}
+              <Icon name="arrow" size={14} />
+            </a>
+          ) : (
+            title
+          )
+        }
+      </h3>
+      <slot name="badges" />
+    </div>
+    {subtitle && <p class="row-sub">{subtitle}</p>}
+    <slot />
+  </div>
+  </div>
+</li>

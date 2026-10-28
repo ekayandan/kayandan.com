@@ -1,0 +1,23 @@
+---
+import Section from './Section.astro';
+import { skills } from '../data/skills';
+---
+
+<Section id="skills" title="Skills">
+  <dl class="skills">
+    {
+      skills.map((g) => (
+        <div class="skill-group" data-reveal>
+          <dt class="skill-label">{g.label}</dt>
+          <dd>
+            <ul class="tags" aria-label={g.label}>
+              {g.items.map((i) => (
+                <li class="tag">{i}</li>
+              ))}
+            </ul>
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+</Section>

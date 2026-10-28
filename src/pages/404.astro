@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import { profile } from '../data/profile';
+---
+
+<Base title={`Page not found — ${profile.name}`} noindex>
+  <main id="main" class="notfound" tabindex="-1">
+    <p class="mono notfound-code">404</p>
+    <h1 class="name">Page not found</h1>
+    <p class="prose">That page does not exist. It may have moved, or the link may be mistyped.</p>
+    <p class="btn-row"><a class="btn btn--primary" href="/">Back to the home page</a></p>
+  </main>
+</Base>

@@ -1,0 +1,31 @@
+---
+import Icon from './Icon.astro';
+import { profile, sections } from '../data/profile';
+---
+
+<div class="topbar" data-topbar>
+  <div class="topbar-inner">
+    <a class="monogram" href="#top" aria-label={`${profile.name} — back to top`}>{profile.initials}</a>
+    <nav class="top-nav" aria-label="In-page jump links" data-nav>
+      <ul>
+        {
+          sections.map((s) => (
+            <li>
+              <a href={`#${s.id}`} data-nav-link={s.id}>{s.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div class="tools">
+      <button type="button" class="icon-btn" data-palette-open aria-label="Open command palette" aria-haspopup="dialog">
+        <Icon name="search" size={16} />
+      </button>
+      <button type="button" class="icon-btn" data-theme-toggle aria-label="Theme: system. Switch to light.">
+        <span data-theme-icon="system"><Icon name="monitor" size={16} /></span>
+        <span data-theme-icon="light" hidden><Icon name="sun" size={16} /></span>
+        <span data-theme-icon="dark" hidden><Icon name="moon" size={16} /></span>
+      </button>
+    </div>
+  </div>
+</div>

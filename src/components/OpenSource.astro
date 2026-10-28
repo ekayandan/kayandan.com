@@ -1,0 +1,73 @@
+---
+import Section from './Section.astro';
+import Row from './Row.astro';
+import { pullRequests, prUrl, repoCounts, artemisTotals, fmt, openSourceSummary } from '../data/openSource';
+
+const monthFmt = (m: string) => {
+  const [y, mo] = m.split('-');
+  const names = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  return `${names[Number(mo) - 1]} ${y}`;
+};
+const repoShort: Record<string, string> = {
+  'ls1intum/Artemis': 'Artemis',
+  'ls1intum/edutelligence': 'edutelligence',
+  'ls1intum/thesis-template-typst': 'thesis-template-typst',
+};
+const notableCount = pullRequests.filter((p) => p.notable).length;
+const total = pullRequests.length;
+---
+
+<Section id="open-source" title="Open source">
+  <p class="lede" data-reveal>
+    <strong>{openSourceSummary.headline}</strong>
+    <span class="sep" aria-hidden="true">·</span>
+    1 in edutelligence
+    <span class="sep" aria-hidden="true">·</span>
+    1 in thesis-template-typst
+  </p>
+  <p class="row-body prose" data-reveal>
+    <a class="link" href={openSourceSummary.artemisUrl} target="_blank" rel="noreferrer noopener" aria-label="ls1intum/Artemis on GitHub (opens in a new tab)">ls1intum/Artemis</a>, TUM’s open-source
+    interactive learning platform (800+ stars). Java/Spring Boot server, Angular/TypeScript client, Python scripts and CI,
+    March to December 2025. Across the 16 Artemis PRs: <span class="mono nowrap"><span class="add">+{fmt(artemisTotals.add)}</span> <span class="del">−{fmt(artemisTotals.del)}</span></span> lines, summed from the list below.
+  </p>
+  <p class="row-body" data-reveal>{openSourceSummary.context}</p>
+
+  <div class="os-controls js-only" data-reveal data-os-controls>
+    <div class="chips" role="group" aria-label="Filter by repository">
+      <button type="button" class="chip" data-repo="all" aria-pressed="true">All <span class="mono">{total}</span></button>
+      {
+        Object.entries(repoCounts).map(([repo, n]) => (
+          <button type="button" class="chip" data-repo={repo} aria-pressed="false">
+            {repoShort[repo]} <span class="mono">{n}</span>
+          </button>
+        ))
+      }
+    </div>
+    <button type="button" class="chip chip--toggle" data-os-expand aria-expanded="false">
+      Show all {total} merged PRs
+    </button>
+  </div>
+  <p class="sr-only" role="status" aria-live="polite" data-os-status></p>
+
+  <ol class="list" data-list data-os data-notable={notableCount} data-total={total}>
+    {
+      pullRequests.map((pr) => (
+        <Row
+          title={pr.title}
+          href={prUrl(pr)}
+          linkLabel={`${repoShort[pr.repo]} pull request #${pr.number}: ${pr.title} (opens in a new tab)`}
+          compact={!pr.notable}
+          attrs={{ 'data-pr': '', 'data-repo': pr.repo, 'data-notable': pr.notable ? 'true' : 'false' }}
+        >
+          <span slot="aside" class="mono date">{monthFmt(pr.merged)}</span>
+          <p class="row-meta mono">
+            {repoShort[pr.repo]} #{pr.number} <span class="sep" aria-hidden="true">·</span>
+            <span class="add">+{fmt(pr.additions)}</span> <span class="del">−{fmt(pr.deletions)}</span>
+            {pr.files && (<><span class="sep" aria-hidden="true">·</span> {pr.files} files</>)}
+          </p>
+          {pr.note && <p class="row-body">{pr.note}</p>}
+        </Row>
+      ))
+    }
+  </ol>
+</Section>

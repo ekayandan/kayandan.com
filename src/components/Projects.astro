@@ -1,0 +1,145 @@
+---
+import Section from './Section.astro';
+import Row from './Row.astro';
+import Tags from './Tags.astro';
+import ExtLink from './ExtLink.astro';
+import Placeholder from './Placeholder.astro';
+import { featured, clientWork, alsoBuilt } from '../data/projects';
+import type { Project } from '../data/types';
+
+type Media =
+  | { kind: 'video'; src: string; webm?: string; poster: string; alt: string; width: number; height: number; ratio: number }
+  | { kind: 'img'; src: string; alt: string; width: number; height: number; ratio: number };
+/** Media rows: each row shares one height; widths follow each item's aspect ratio. Videos pair up per site (desktop + mobile). */
+const rows = (p: Project): { sum: number; items: Media[] }[] => {
+  let items: Media[] = [];
+  if (p.videos?.length) {
+    items = p.videos.map((v) => {
+      const m = v.device === 'mobile';
+      const [width, height] = m ? [390, 844] : [1280, 720];
+      return { kind: 'video', ...v, width, height, ratio: width / height };
+    });
+  } else if (p.gallery?.length) {
+    items = p.gallery.map((g) => ({ kind: 'img', ...g, ratio: g.width / g.height }));
+  } else if (p.screenshots?.length) {
+    return p.screenshots.map((s) => ({ sum: 16 / 9, items: [{ kind: 'img', ...s, width: 1280, height: 720, ratio: 16 / 9 } as Media] }));
+  }
+  const size = p.videos?.length ? 2 : items.length;
+  const out: { sum: number; items: Media[] }[] = [];
+  for (let i = 0; i < items.length; i += size) {
+    const part = items.slice(i, i + size);
+    out.push({ sum: part.reduce((a, m) => a + m.ratio, 0), items: part });
+  }
+  return out;
+};
+const single = (p: Project) => (p.links && p.links.length === 1 ? p.links[0] : undefined);
+---
+
+{/* Shared snippets */}
+<Section id="projects" title="Projects">
+  {
+    [{ list: featured, head: null }, { list: clientWork, head: 'Client work' }].map(({ list: group, head }) => (
+      <>
+        {head && <h3 class="subhead" data-reveal>{head}</h3>}
+    <ol class="list" data-list>
+          {
+            group.map((p) => {
+              const one = single(p);
+              return (
+                <Row title={p.name} subtitle={p.role} href={one?.href} linkLabel={one ? `${p.name} on GitHub (opens in a new tab)` : undefined}>
+                  <span slot="badges" class="badges">
+                    <span class:list={['badge', p.status === 'Live' && 'badge--live']}>{p.status}</span>
+                    {p.visibility && <span class="badge badge--quiet">{p.visibility === 'private' ? 'Private repo' : 'Public repo'}</span>}
+                  </span>
+                  {rows(p).map((row) => (
+                    <div class="demo-clips" data-media-row style={`--sum:${row.sum};--gaps:${row.items.length - 1}`}>
+                      {row.items.map((m) =>
+                        m.kind === 'video' ? (
+                          <video
+                            class:list={['demo-clip']}
+                            style={`--r:${m.ratio}`}
+                            data-demo
+                            muted
+                            loop
+                            playsinline
+                            preload="none"
+                            poster={m.poster}
+                            aria-label={m.alt}
+                            width={m.width}
+                            height={m.height}
+                          >
+                            {m.webm && <source src={m.webm} type="video/webm" />}
+                            <source src={m.src} type="video/mp4" />
+                          </video>
+                        ) : (
+                          <img class="demo-clip" style={`--r:${m.ratio}`} src={m.src} alt={m.alt} width={m.width} height={m.height} loading="lazy" decoding="async" />
+                        ),
+                      )}
+                    </div>
+                  ))}
+                  <p class="row-body">{p.blurb}</p>
+                  {p.stats && (
+                    <dl class="stats">
+                      {p.stats.map((s) => (
+                        <div class="stat">
+                          <dt class="stat-label">{s.label}</dt>
+                          <dd class="stat-value mono">{s.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  )}
+                  {p.bullets && (
+                    <ul class="bullets">
+                      {p.bullets.map((b) => (
+                        <li>{b}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {p.notes?.map((n) => (
+                    <p class="row-note">
+                      <span class="row-note-label">{n.label}</span> {n.text}
+                    </p>
+                  ))}
+                  {p.links && p.links.length > 1 && (
+                    <p class="row-links">
+                      {p.links.map((l) => (
+                        <ExtLink href={l.href} label={l.label} />
+                      ))}
+                    </p>
+                  )}
+                  <Tags tags={p.tags} />
+                  {p.placeholders?.map((t) => (
+                    <Placeholder label={t} />
+                  ))}
+                </Row>
+              );
+            })
+          }
+        </ol>
+      </>
+    ))
+  }
+
+  <h3 class="subhead" data-reveal>Also built</h3>
+  <ol class="list list--compact" data-list>
+    {
+      alsoBuilt.map((p) => {
+        const one = single(p);
+        return (
+          <Row title={p.name} href={one?.href} compact linkLabel={one ? `${one.label} on GitHub (opens in a new tab)` : undefined}>
+            <span slot="aside" class="mono date">{p.period}</span>
+            <span slot="badges" class="badges">
+              <span class="badge">{p.status}</span>
+              {p.visibility && <span class="badge badge--quiet">{p.visibility === 'private' ? 'Private repo' : 'Public repo'}</span>}
+            </span>
+            <p class="row-body">{p.blurb}</p>
+            <Tags tags={p.tags} />
+            {p.placeholders?.map((t) => (
+              <Placeholder label={t} />
+            ))}
+          </Row>
+        );
+      })
+    }
+  </ol>
+</Section>

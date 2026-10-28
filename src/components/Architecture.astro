@@ -1,0 +1,256 @@
+---
+import Section from './Section.astro';
+
+const artemis = [
+  { label: 'Export endpoint turnaround', before: 100, after: 25, value: '−75%' },
+  { label: 'Java ↔ Python payload (~100 KB → ~17 KB)', before: 100, after: 17, value: '−83%' },
+  { label: 'CI gate fail rate', before: 80, after: 20, value: '80% → 20%' },
+  { label: 'Server diff work per submission (20–124 ms)', before: 100, after: 0, value: 'moved to browser' },
+];
+const W = 400;
+---
+
+<Section id="architecture" title="How it's built">
+  <figure class="dg" data-reveal>
+    <figcaption>
+      <span class="dg-title">Flyism.net &amp; BizeVizeYok.com</span>
+      One serverless codebase on Cloudflare. Visa rules reach the product only after a human approves the agents' proofs.
+    </figcaption>
+    <svg viewBox="0 0 520 404" role="img" aria-labelledby="dg-fly-t">
+      <title id="dg-fly-t">Flyism architecture: React frontend, Hono Worker, KV cache, provider adapter, R2 archive projected into D1, and a human-reviewed visa research pipeline.</title>
+      <defs>
+        <marker id="dg-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" class="dg-head" />
+        </marker>
+      </defs>
+      <rect class="dg-box" x="10" y="10" width="500" height="52" rx="8" />
+      <text class="dg-t" x="260" y="32" text-anchor="middle">Browser · React 19, Vite</text>
+      <text class="dg-s" x="260" y="51" text-anchor="middle">flyism.net · bizevizeyok.com · server-rendered SEO pages</text>
+
+      <rect class="dg-box dg-box--accent" x="10" y="92" width="500" height="52" rx="8" />
+      <text class="dg-t" x="260" y="114" text-anchor="middle">Cloudflare Worker · Hono + Zod</text>
+      <text class="dg-s" x="260" y="133" text-anchor="middle">typed API · 20 requests/min per client</text>
+
+      <rect class="dg-box" x="10" y="174" width="155" height="52" rx="8" />
+      <text class="dg-t" x="87" y="196" text-anchor="middle">KV</text>
+      <text class="dg-s" x="87" y="215" text-anchor="middle">search cache 1h / 6h</text>
+      <rect class="dg-box" x="182" y="174" width="156" height="52" rx="8" />
+      <text class="dg-t" x="260" y="196" text-anchor="middle">Provider adapter</text>
+      <text class="dg-s" x="260" y="215" text-anchor="middle">GraphQL flight API</text>
+      <rect class="dg-box" x="355" y="174" width="155" height="52" rx="8" />
+      <text class="dg-t" x="432" y="196" text-anchor="middle">D1</text>
+      <text class="dg-s" x="432" y="215" text-anchor="middle">prices · visa rules</text>
+
+      <rect class="dg-box" x="182" y="256" width="156" height="52" rx="8" />
+      <text class="dg-t" x="260" y="278" text-anchor="middle">R2</text>
+      <text class="dg-s" x="260" y="297" text-anchor="middle">raw, immutable</text>
+
+      <rect class="dg-group" x="4" y="326" width="512" height="74" rx="10" />
+      <text class="dg-s" x="14" y="341">passport-manager (private admin)</text>
+      <rect class="dg-box" x="10" y="348" width="155" height="46" rx="8" />
+      <text class="dg-t" x="87" y="367" text-anchor="middle">Research agents</text>
+      <text class="dg-s" x="87" y="384" text-anchor="middle">official pages only</text>
+      <rect class="dg-box" x="182" y="348" width="156" height="46" rx="8" />
+      <text class="dg-t" x="260" y="367" text-anchor="middle">Proofs API</text>
+      <text class="dg-s" x="260" y="384" text-anchor="middle">exact quotes required</text>
+      <rect class="dg-box dg-box--accent" x="355" y="348" width="155" height="46" rx="8" />
+      <text class="dg-t" x="432" y="367" text-anchor="middle">Human review</text>
+      <text class="dg-s" x="432" y="384" text-anchor="middle">approve before use</text>
+
+      <g class="dg-line" marker-end="url(#dg-arrow)">
+        <path d="M260 62 V90" />
+        <path d="M87 144 V172" />
+        <path d="M260 144 V172" />
+        <path d="M432 144 V172" />
+        <path d="M260 226 V254" />
+        <path d="M338 282 H400 V228" />
+        <path d="M165 371 H180" />
+        <path d="M338 371 H353" />
+        <path d="M480 348 V228" />
+      </g>
+      <text class="dg-s" x="408" y="262">async</text>
+      <text class="dg-s" x="408" y="277">projection</text>
+    </svg>
+  </figure>
+
+  <figure class="dg" data-reveal>
+    <figcaption>
+      <span class="dg-title">JobTrack</span>
+      A private job-search assistant: Claude does the reading, scoring and form filling, and I make every decision. Modules run as a pipeline, each the only writer of its own tables, linked by events and public APIs. Shaded boxes run Claude agents; dashed ones are still planned.
+    </figcaption>
+    <svg viewBox="0 0 520 678" role="img" aria-labelledby="dg-jt-t">
+      <title id="dg-jt-t">JobTrack modules as a pipeline: automation, ingestion, scoring, listing and application, with browser, documents and orchestrator agents under application. Events and APIs link the modules, each table has one owning module, Claude agents run in scoring, browser and documents, and a human decides pass or go and reviews and submits every application.</title>
+      <g>
+        <rect class="dg-box" x="10" y="10" width="320" height="60" rx="8" />
+        <text class="dg-t" x="24" y="31">automation</text>
+        <text class="dg-s" x="24" y="48">cron schedules · LinkedIn search runs</text>
+        <text class="dg-s" x="24" y="63">owns saved_searches, runs (planned)</text>
+        <rect class="dg-box" x="10" y="100" width="320" height="60" rx="8" />
+        <text class="dg-t" x="24" y="121">ingestion</text>
+        <text class="dg-s" x="24" y="138">extension scrapes · stores the posting</text>
+        <text class="dg-s" x="24" y="153">owns jobs, companies</text>
+        <rect class="dg-box dg-box--accent" x="10" y="190" width="320" height="60" rx="8" />
+        <text class="dg-t" x="24" y="211">scoring</text>
+        <text class="dg-s" x="24" y="228">Claude fit score · attributes · ranking</text>
+        <text class="dg-s" x="24" y="243">owns job_attributes, scoring queue</text>
+        <rect class="dg-box" x="10" y="280" width="320" height="60" rx="8" />
+        <text class="dg-t" x="24" y="301">listing</text>
+        <text class="dg-s" x="24" y="318">jobs UI · filters · pass or go</text>
+        <text class="dg-s" x="24" y="333">owns job_decisions, job_overview</text>
+        <rect class="dg-box" x="10" y="370" width="320" height="60" rx="8" />
+        <text class="dg-t" x="24" y="391">application</text>
+        <text class="dg-s" x="24" y="408">case and queue after go</text>
+        <text class="dg-s" x="24" y="423">owns application_tasks (case)</text>
+      </g>
+
+      <rect class="dg-box" x="360" y="10" width="150" height="160" rx="8" />
+      <text class="dg-t" x="374" y="31">contracts</text>
+      <text class="dg-s" x="374" y="50">OpenAPI + JSON</text>
+      <text class="dg-s" x="374" y="66">Schema across</text>
+      <text class="dg-s" x="374" y="82">Java, Python,</text>
+      <text class="dg-s" x="374" y="98">extension</text>
+      <text class="dg-s" x="374" y="114">(folder planned)</text>
+      <text class="dg-s" x="374" y="130">api / internal</text>
+      <text class="dg-s" x="374" y="146">per Java module</text>
+      <rect class="dg-box" x="360" y="190" width="150" height="94" rx="8" />
+      <text class="dg-t" x="374" y="211">profile</text>
+      <text class="dg-s" x="374" y="230">career facts, kept</text>
+      <text class="dg-s" x="374" y="246">as files; agents</text>
+      <text class="dg-s" x="374" y="262">read, orchestrator</text>
+      <text class="dg-s" x="374" y="278">writes</text>
+      <rect class="dg-box" x="360" y="296" width="150" height="44" rx="8" />
+      <text class="dg-t" x="374" y="315">you decide</text>
+      <text class="dg-s" x="374" y="331">pass or go</text>
+      <rect class="dg-box" x="360" y="370" width="150" height="60" rx="8" />
+      <text class="dg-t" x="374" y="391">notification</text>
+      <text class="dg-s" x="374" y="410">ntfy alerts</text>
+
+      <rect class="dg-group" x="4" y="458" width="512" height="100" rx="10" />
+      <text class="dg-s" x="14" y="474">agents · reached through the application API</text>
+      <rect class="dg-box dg-box--accent" x="10" y="484" width="155" height="64" rx="8" />
+      <text class="dg-t" x="87" y="504" text-anchor="middle">browser</text>
+      <text class="dg-s" x="87" y="521" text-anchor="middle">fills this page</text>
+      <text class="dg-s" x="87" y="537" text-anchor="middle">owns form runs</text>
+      <rect class="dg-box dg-box--accent" x="182" y="484" width="156" height="64" rx="8" />
+      <text class="dg-t" x="260" y="504" text-anchor="middle">documents</text>
+      <text class="dg-s" x="260" y="521" text-anchor="middle">CV + cover letter</text>
+      <text class="dg-s" x="260" y="537" text-anchor="middle">owns doc requests</text>
+      <rect class="dg-group" x="355" y="484" width="155" height="64" rx="8" />
+      <text class="dg-t" x="432" y="504" text-anchor="middle">orchestrator</text>
+      <text class="dg-s" x="432" y="521" text-anchor="middle">sees both agents</text>
+      <text class="dg-s" x="432" y="537" text-anchor="middle">owns agent_runs</text>
+
+      <rect class="dg-box" x="10" y="578" width="500" height="46" rx="8" />
+      <text class="dg-t" x="260" y="598" text-anchor="middle">You review and submit</text>
+      <text class="dg-s" x="260" y="615" text-anchor="middle">the agent never presses submit</text>
+
+      <g class="dg-line" marker-end="url(#dg-arrow)">
+        <path d="M60 70 V98" />
+        <path d="M60 160 V188" />
+        <path d="M60 250 V278" />
+        <path d="M60 340 V368" />
+        <path d="M60 430 V456" />
+        <path d="M260 558 V576" />
+        <path d="M360 220 H332" />
+        <path d="M360 318 H332" />
+      </g>
+      <text class="dg-s" x="72" y="88">run id · extension scrapes</text>
+      <text class="dg-s" x="72" y="178">event · JobIngested</text>
+      <text class="dg-s" x="72" y="268">api · listing ranks</text>
+      <text class="dg-s" x="72" y="358">go · JobChosen (planned)</text>
+      <text class="dg-s" x="72" y="449">application API</text>
+      <text class="dg-s" x="10" y="648">shaded = Claude agent · dashed = planned</text>
+      <text class="dg-s" x="10" y="666">Java 21 · Spring Boot · Postgres · Python · Playwright</text>
+    </svg>
+  </figure>
+
+  <figure class="dg" data-reveal>
+    <figcaption>
+      <span class="dg-title">Artemis, master's thesis</span>
+      Four measured improvements to TUM's open-source programming education platform.
+    </figcaption>
+    <svg viewBox="0 0 520 268" role="img" aria-labelledby="dg-ar-t">
+      <title id="dg-ar-t">Artemis thesis results: export turnaround −75%, inter-service payload −83%, CI gate fail rate from 80% to 20%, server diff work moved to the browser.</title>
+      {
+        artemis.map((r, i) => {
+          const y = 10 + i * 58;
+          return (
+            <g>
+              <text class="dg-t dg-t--sm" x="10" y={y + 12}>{r.label}</text>
+              <rect class="dg-bar" x="10" y={y + 20} width={(W * r.before) / 100} height="9" rx="2" />
+              <rect class="dg-bar dg-bar--after" x="10" y={y + 33} width={Math.max((W * r.after) / 100, 2)} height="9" rx="2" />
+              <text class="dg-v" x={W + 20} y={y + 41}>{r.value}</text>
+            </g>
+          );
+        })
+      }
+      <rect class="dg-bar" x="10" y="250" width="14" height="9" rx="2" />
+      <text class="dg-s" x="30" y="259">before</text>
+      <rect class="dg-bar dg-bar--after" x="90" y="250" width="14" height="9" rx="2" />
+      <text class="dg-s" x="110" y="259">after</text>
+    </svg>
+  </figure>
+</Section>
+
+<style>
+  .dg {
+    margin: 0 0 56px;
+  }
+  .dg figcaption {
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .dg-title {
+    display: block;
+    color: var(--ink);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .dg svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .dg-box {
+    fill: var(--bg-subtle);
+    stroke: var(--line);
+  }
+  .dg-box--accent {
+    fill: var(--accent-bg);
+    stroke: var(--accent);
+  }
+  .dg-group {
+    fill: none;
+    stroke: var(--line);
+    stroke-dasharray: 4 4;
+  }
+  .dg-t {
+    fill: var(--ink);
+    font: 500 14px var(--font-sans);
+  }
+  .dg-t--sm {
+    font-size: 13px;
+  }
+  .dg-s {
+    fill: var(--muted);
+    font: 11.5px var(--font-mono);
+  }
+  .dg-v {
+    fill: var(--accent);
+    font: 500 12px var(--font-mono);
+  }
+  .dg-line path {
+    fill: none;
+    stroke: var(--muted);
+    stroke-width: 1.25;
+  }
+  .dg-head {
+    fill: var(--muted);
+  }
+  .dg-bar {
+    fill: var(--line);
+  }
+  .dg-bar--after {
+    fill: var(--accent);
+  }
+</style>

@@ -1,0 +1,74 @@
+---
+import Icon from './Icon.astro';
+import { sections, profile } from '../data/profile';
+
+const links = [
+  { label: 'Flyism.net', href: 'https://flyism.net', kw: 'live project flight' },
+  { label: 'BizeVizeYok.com', href: 'https://bizevizeyok.com', kw: 'live project flight' },
+  { label: 'agent-native-repository', href: 'https://github.com/ekayandan/agent-native-repository', kw: 'github agent skill' },
+  { label: 'Artemis pull requests', href: 'https://github.com/ls1intum/Artemis/pulls?q=is%3Apr+author%3Aekayandan+is%3Amerged', kw: 'open source contributions prs' },
+  { label: 'GitHub profile', href: profile.github, kw: 'social code' },
+  { label: 'LinkedIn profile', href: profile.linkedin, kw: 'social' },
+];
+---
+
+<dialog id="palette" class="palette" aria-labelledby="palette-title" data-palette>
+  <h2 id="palette-title" class="sr-only">Command menu</h2>
+  <div class="palette-search">
+    <Icon name="search" size={16} />
+    <input
+      type="text"
+      id="palette-input"
+      role="combobox"
+      aria-expanded="true"
+      aria-controls="palette-list"
+      aria-autocomplete="list"
+      aria-label="Search sections, links and actions"
+      placeholder="Search sections, links, actions…"
+      autocomplete="off"
+      autocapitalize="off"
+      spellcheck="false"
+      data-palette-input
+    />
+    <kbd class="palette-esc" aria-hidden="true">Esc</kbd>
+  </div>
+  <ul id="palette-list" class="palette-list" role="listbox" aria-label="Results" data-palette-list>
+    <li class="palette-group" role="presentation">Sections</li>
+    {
+      sections.map((s) => (
+        <li role="option" id={`pal-sec-${s.id}`} data-type="nav" data-value={s.id} data-text={`${s.label} section go to jump`}>
+          <span class="pal-label">{s.label}</span><span class="pal-hint">Go to section</span>
+        </li>
+      ))
+    }
+    <li class="palette-group" role="presentation">Links</li>
+    {
+      links.map((l, i) => (
+        <li role="option" id={`pal-link-${i}`} data-type="link" data-value={l.href} data-text={`${l.label} ${l.kw} open link`}>
+          <span class="pal-label">{l.label}</span><span class="pal-hint">Open ↗</span>
+        </li>
+      ))
+    }
+    <li class="palette-group" role="presentation">Actions</li>
+    <li role="option" id="pal-copy" data-type="copy" data-value={profile.email} data-text="copy email address contact">
+      <span class="pal-label">Copy email address</span><span class="pal-hint">{profile.email}</span>
+    </li>
+    <li role="option" id="pal-th-light" data-type="theme" data-value="light" data-text="theme light mode appearance">
+      <span class="pal-label">Theme: Light</span><span class="pal-hint">Appearance</span>
+    </li>
+    <li role="option" id="pal-th-dark" data-type="theme" data-value="dark" data-text="theme dark mode appearance">
+      <span class="pal-label">Theme: Dark</span><span class="pal-hint">Appearance</span>
+    </li>
+    <li role="option" id="pal-th-system" data-type="theme" data-value="system" data-text="theme system automatic appearance">
+      <span class="pal-label">Theme: System</span><span class="pal-hint">Appearance</span>
+    </li>
+  </ul>
+  <p class="palette-empty" role="status" hidden data-palette-empty>No results.</p>
+  <div class="palette-foot" aria-hidden="true">
+    <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+    <span><kbd>↵</kbd> select</span>
+    <span><kbd>Esc</kbd> close</span>
+  </div>
+</dialog>
+
+<div class="toast" role="status" aria-live="polite" data-toast></div>

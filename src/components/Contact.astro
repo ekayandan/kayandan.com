@@ -1,0 +1,15 @@
+---
+import Section from './Section.astro';
+import Icon from './Icon.astro';
+import { profile } from '../data/profile';
+---
+
+<Section id="contact" title="Contact">
+  <p class="prose cta" data-reveal>{profile.contact.cta}</p>
+  <p class="row-body" data-reveal>{profile.contact.relocation}</p>
+  <p class="btn-row" data-reveal>
+    <a class="btn btn--primary" href={`mailto:${profile.email}`}><Icon name="mail" size={14} />{profile.email}</a>
+    <a class="btn" href={profile.linkedin} target="_blank" rel="noreferrer noopener" aria-label="LinkedIn (opens in a new tab)"><Icon name="linkedin" size={14} />LinkedIn</a>
+    <a class="btn" href={profile.github} target="_blank" rel="noreferrer noopener" aria-label="GitHub (opens in a new tab)"><Icon name="github" size={14} />GitHub</a>
+  </p>
+</Section>

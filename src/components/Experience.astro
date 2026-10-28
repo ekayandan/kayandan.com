@@ -1,0 +1,63 @@
+---
+import Section from './Section.astro';
+import Row from './Row.astro';
+import Tags from './Tags.astro';
+import ExtLink from './ExtLink.astro';
+import Placeholder from './Placeholder.astro';
+import Icon from './Icon.astro';
+import { experience, earlier } from '../data/experience';
+import { profile } from '../data/profile';
+---
+
+<Section id="experience" title="Experience">
+  <ol class="list" data-list>
+    {
+      experience.map((job) => (
+        <Row title={job.title} subtitle={`${job.company} · ${job.location}`}>
+          <span slot="aside" class="mono date">{job.period}</span>
+          <ul class="bullets">
+            {job.bullets.map((b) => (
+              <li>{b}</li>
+            ))}
+          </ul>
+          {job.links && (
+            <p class="row-links">
+              {job.links.map((l) => (
+                <ExtLink href={l.href} label={l.label} />
+              ))}
+            </p>
+          )}
+          <Tags tags={job.tags} />
+          {job.placeholders?.map((p) => (
+            <Placeholder label={p} />
+          ))}
+        </Row>
+      ))
+    }
+  </ol>
+
+  <details class="earlier" data-reveal>
+    <summary>
+      <Icon name="chevron" size={14} />
+      <span>Earlier internships</span>
+      <span class="count mono">{earlier.length}</span>
+    </summary>
+    <ol class="list" data-list>
+      {
+        earlier.map((r) => (
+          <Row title={r.title} subtitle={r.company} compact>
+            <span slot="aside" class="mono date">{r.period}</span>
+            <p class="row-body">{r.summary}</p>
+          </Row>
+        ))
+      }
+    </ol>
+  </details>
+
+  <p class="resume-line" data-reveal>
+    <a class="btn" href={profile.linkedin} target="_blank" rel="noreferrer noopener">
+      <Icon name="linkedin" size={14} />
+      Full history on LinkedIn
+    </a>
+  </p>
+</Section>

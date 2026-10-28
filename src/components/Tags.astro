@@ -1,0 +1,17 @@
+---
+export interface Props {
+  tags: string[];
+  label?: string;
+}
+const { tags, label = 'Technologies' } = Astro.props;
+---
+
+{
+  tags.length > 0 && (
+    <ul class="tags" aria-label={label}>
+      {tags.map((t) => (
+        <li class="tag">{t}</li>
+      ))}
+    </ul>
+  )
+}

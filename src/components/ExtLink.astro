@@ -1,0 +1,19 @@
+---
+import Icon from './Icon.astro';
+export interface Props {
+  href: string;
+  label: string;
+  /** Accessible name override. */
+  aria?: string;
+}
+const { href, label, aria } = Astro.props;
+const external = href.startsWith('http');
+---
+
+<a
+  class="ext-link"
+  href={href}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noreferrer noopener' : undefined}
+  aria-label={aria ?? (external ? `${label} (opens in a new tab)` : undefined)}
+>{label}<Icon name="arrow" size={12} /></a>

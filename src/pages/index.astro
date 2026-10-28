@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Topbar from '../components/Topbar.astro';
+import Palette from '../components/Palette.astro';
+import About from '../components/About.astro';
+import Experience from '../components/Experience.astro';
+import Projects from '../components/Projects.astro';
+import Architecture from '../components/Architecture.astro';
+import OpenSource from '../components/OpenSource.astro';
+import Skills from '../components/Skills.astro';
+import Education from '../components/Education.astro';
+import Contact from '../components/Contact.astro';
+import { profile } from '../data/profile';
+---
+
+<Base>
+  <Topbar />
+  <div class="shell">
+  <Header />
+  <div class="content">
+  <main id="main" tabindex="-1">
+    <About />
+    <Experience />
+    <Projects />
+    <Architecture />
+    <OpenSource />
+    <Skills />
+    <Education />
+    <Contact />
+  </main>
+  <footer class="footer" data-reveal>
+    <p>{profile.footer.copyright}</p>
+    <p class="muted">
+      Also on <a class="link" href={profile.github} target="_blank" rel="noreferrer noopener">GitHub</a> and
+      <a class="link" href={profile.linkedin} target="_blank" rel="noreferrer noopener">LinkedIn</a>.
+    </p>
+  </footer>
+  </div>
+  </div>
+  <Palette />
+</Base>

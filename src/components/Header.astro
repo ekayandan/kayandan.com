@@ -1,0 +1,59 @@
+---
+import Icon from './Icon.astro';
+import { profile, sections, socials } from '../data/profile';
+---
+
+<header class="site-header" id="top">
+  <div class="identity">
+    <h1 class="name" data-reveal>{profile.name}</h1>
+    <p class="role" data-reveal>{profile.role}</p>
+    <p class="tagline" data-reveal>{profile.tagline}</p>
+    <p class="chip-status" data-reveal><span class="dot" aria-hidden="true"></span>{profile.availability}</p>
+
+    <nav class="side-nav" aria-label="In-page jump links" data-nav data-reveal>
+      <ul>
+        {
+          sections.map((s) => (
+            <li>
+              <a href={`#${s.id}`} data-nav-link={s.id}>
+                <span class="bar" aria-hidden="true"></span>
+                <span class="text">{s.label}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+
+  <div class="side-foot" data-reveal>
+    <ul class="socials" aria-label="Elsewhere">
+      {
+        socials.map((s) => (
+          <li>
+            <a
+              class="icon-btn"
+              href={s.href}
+              target={s.href.startsWith('http') ? '_blank' : undefined}
+              rel={s.href.startsWith('http') ? 'noreferrer noopener' : undefined}
+              aria-label={s.href.startsWith('http') ? `${s.label} (opens in a new tab)` : s.label}
+            >
+              <Icon name={s.icon} size={18} />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="tools tools--side">
+      <button type="button" class="icon-btn" data-theme-toggle aria-label="Theme: system. Switch to light.">
+        <span data-theme-icon="system"><Icon name="monitor" size={16} /></span>
+        <span data-theme-icon="light" hidden><Icon name="sun" size={16} /></span>
+        <span data-theme-icon="dark" hidden><Icon name="moon" size={16} /></span>
+      </button>
+      <button type="button" class="kbd-hint" data-palette-open aria-haspopup="dialog" aria-label="Open command palette">
+        <span>Command menu</span>
+        <span class="kbds" aria-hidden="true"><kbd data-mod>Ctrl</kbd><kbd>K</kbd></span>
+      </button>
+    </div>
+  </div>
+</header>

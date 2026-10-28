@@ -1,0 +1,30 @@
+---
+import Section from './Section.astro';
+import Row from './Row.astro';
+import { education } from '../data/education';
+import { profile } from '../data/profile';
+---
+
+<Section id="education" title="Education">
+  <ol class="list" data-list>
+    {
+      education.map((e) => (
+        <Row title={e.title} subtitle={e.institution} compact>
+          <span slot="aside" class="mono date">{e.period}</span>
+          {e.note && <p class="row-body">{e.note}</p>}
+        </Row>
+      ))
+    }
+  </ol>
+  <p class="row-body langs" data-reveal>
+    <span class="row-note-label">Languages</span>
+    {
+      profile.languages.map((l, i) => (
+        <>
+          {i > 0 && <span class="sep" aria-hidden="true"> · </span>}
+          <span class="nowrap">{l.name} ({l.level})</span>
+        </>
+      ))
+    }
+  </p>
+</Section>

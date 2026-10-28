@@ -1,0 +1,23 @@
+---
+import Section from './Section.astro';
+import Placeholder from './Placeholder.astro';
+import { profile } from '../data/profile';
+const paras = profile.about;
+---
+
+<Section id="about" title="About">
+  <div class="about">
+    <div class="about-avatar" data-reveal>
+      <Placeholder variant="box" label={profile.aboutPlaceholders.avatar} class="avatar" />
+    </div>
+    <div class="about-copy">
+      {
+        paras.map((p) => (
+          <p class="prose" data-reveal>
+            <Fragment set:html={p} />
+          </p>
+        ))
+      }
+    </div>
+  </div>
+</Section>
