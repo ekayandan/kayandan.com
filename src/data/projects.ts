@@ -44,16 +44,6 @@ export const featured: Project[] = [
       { src: '/images/projects/bizevizeyok.jpg', alt: 'BizeVizeYok.com home page' },
     ],
   },
-  {
-    id: 'agent-native-repository',
-    name: 'agent-native-repository',
-    status: 'New',
-    visibility: 'public',
-    blurb:
-      'A portable Agent Skill that brings any repository to the state where Claude Code, Codex and Gemini CLI work well in it: an AGENTS.md codebase map enforced by a check, a routing table, one quality command, file-size and dead-code limits, workflow rules, and enforcement in git hooks and CI.',
-    tags: ['Python', 'Shell', 'Agent Skills', 'AGENTS.md'],
-    links: [{ label: 'github.com/ekayandan/agent-native-repository', href: 'https://github.com/ekayandan/agent-native-repository' }],
-  },
 ];
 
 export const clientWork: Project[] = [
@@ -75,12 +65,12 @@ export const clientWork: Project[] = [
   },
   {
     id: 'aiutanda',
-    name: 'aiutanda patient app and admin web app',
+    name: 'aiutanda',
     status: 'Live',
     period: '2022',
     role: 'at Jatosha GmbH, for aiutanda',
     blurb:
-      'Built at Jatosha GmbH for aiutanda, a nationwide healthcare group: a Flutter patient app so nurses can request care services and supplies in the field, plus an Angular admin web app. There is no public web demo, so these are the store screenshots (sample data).',
+      'Built a Flutter mobile app for customers and an Angular admin web app, shipped together to the app stores and the web. Nurses use the app to request care services and supplies in the field. Built at Jatosha GmbH for aiutanda, a healthcare group. These are the store screenshots (sample data).',
     tags: ['Flutter', 'Angular'],
     links: [
       { label: 'Google Play', href: 'https://play.google.com/store/apps/details?id=de.aiutanda.gesundheitsapp' },
@@ -130,28 +120,10 @@ export const alsoBuilt: Project[] = [
   {
     id: 'kaset',
     name: 'Kaset',
-    status: 'Dormant',
+    status: 'Work in progress',
     visibility: 'private',
-    period: 'Apr 2026',
+    period: 'Apr 2026 – present',
     blurb: 'Event pages and admin on Cloudflare: public event pages with galleries and a password-protected admin.',
     tags: ['Next.js', 'D1', 'R2'],
-  },
-  {
-    id: 'asr',
-    name: 'ASR post-correction & evaluation tooling',
-    status: 'Exploratory',
-    visibility: 'public',
-    period: 'Oct 2025',
-    blurb: 'Exploratory Python tooling for correcting and evaluating speech-recognition output.',
-    tags: ['Python'],
-    links: [{ label: 'asr-analyzer', href: 'https://github.com/ekayandan/asr-analyzer' }],
-  },
-  {
-    id: 'research-framework',
-    name: 'Agent-supported research & academic-writing framework',
-    status: 'In preparation',
-    period: 'In preparation',
-    blurb: 'Grew out of my thesis work. I am working on publishing it as open source.',
-    tags: [],
   },
 ];

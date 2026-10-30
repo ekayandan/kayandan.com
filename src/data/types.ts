@@ -27,7 +27,7 @@ export interface EarlierRole {
   summary: string;
 }
 
-export type ProjectStatus = 'Live' | 'Active' | 'New' | 'Dormant' | 'Exploratory' | 'Coursework' | 'In preparation';
+export type ProjectStatus = 'Live' | 'Active' | 'New' | 'Dormant' | 'Exploratory' | 'Coursework' | 'In preparation' | 'Work in progress';
 
 export interface Project {
   id: string;
